@@ -1,3 +1,6 @@
+.bash_helpers.sh
 *.iso
+*.pid
 *.preseed
+*.tmp
 Dockerfile
