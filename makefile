@@ -32,6 +32,7 @@ all:	$(DOCKERFILES)
 clean:
 	rm -f $(DOCKERFILES)
 	rm -f qemu.pid hda.tmp
+	rm -rf ./venv ./roles
 
 # Clean everything
 mrproper: clean
@@ -50,7 +51,10 @@ buster-standard.iso:	debian_preseed/standard.preseed debian_preseed/Dockerfile d
 buster-server.iso:	debian_preseed/server.preseed debian_preseed/Dockerfile debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso
 	bash scripts/create_iso.sh "debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso" buster-server.iso debian_preseed/server.preseed
 
-test:
-	bash scripts/test.sh
+test_iso:
+	bash scripts/test_iso.sh
 
-.PHONY: clean test
+test_ansible:
+	bash scripts/test_ansible.sh
+
+.PHONY: clean test_iso test_ansible

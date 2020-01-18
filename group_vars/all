@@ -1,0 +1,14 @@
+docker_portainer_image: "portainer/portainer:1.23.0"
+
+# For passwords: mkpasswd -m sha-512
+users:
+  - name: test
+    # test
+    password: '$6$AS26ypuc$wM40RNMU42LBmkIJMCIaDLtKBZwfCNYA.ypV3v/vOW4GDU1bmV9K8oJK6himI05WBxLkNHzEsW7Crn6Lo2n6o0'
+    groups:
+      - users
+      - plugdev
+      - sudo
+      - dialout
+      - docker
+

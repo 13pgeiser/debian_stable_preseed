@@ -1,0 +1,3 @@
+[demo]
+localhost	ansible_user=localadmin ansible_port=2222 ansible_python_interpreter=/usr/bin/python3
+

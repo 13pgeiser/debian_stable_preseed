@@ -11,5 +11,6 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install make m4
   - make
-  - make test
+  - make test_iso
+  - make test_ansible
 
