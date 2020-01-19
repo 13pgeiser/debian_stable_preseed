@@ -3,6 +3,7 @@
 This repo contains a Dockerfile to create a Debian "preseeded" ISO image
 
 [![Build Status](https://travis-ci.org/13pgeiser/debian_stable_preseed.svg?branch=master)](https://travis-ci.org/13pgeiser/debian_stable_preseed)
+[![Build Status](https://dev.azure.com/pascalgeiser/debian_stable_preseed/_apis/build/status/13pgeiser.debian_stable_preseed?branchName=master)](https://dev.azure.com/pascalgeiser/debian_stable_preseed/_build/latest?definitionId=1&branchName=master)
 
 https://wiki.debian.org/DebianInstaller/Preseed
 
