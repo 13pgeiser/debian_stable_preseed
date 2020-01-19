@@ -1,0 +1,13 @@
+trigger:
+- master
+
+jobs:
+- job: Build
+  timeoutInMinutes: 180
+  pool:
+    vmImage: 'Ubuntu-18.04'
+  steps:
+  - bash: make
+  - bash: make test_iso
+  - bash: make test_ansible
+
