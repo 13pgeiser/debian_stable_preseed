@@ -3,11 +3,11 @@ M4_COMMON = `pwd`/_m4
 M4 = m4
 
 # Debian buster preseed
-BUSTER_NET_INST_VER:=10.2.0
-BUSTER_NET_INST_MD5:=36de671429939e90f2a31ce3fbed0aaf
+BUSTER_NET_INST_VER:=10.3.0
+BUSTER_NET_INST_MD5:=5956434be4b81e6376151b64ef9b1596
 
 # Include local config if any
-#-include ../docker_config.mak
+-include ../docker_config.mak
 
 # List of docker images & targets
 DOCKERFILES=\
