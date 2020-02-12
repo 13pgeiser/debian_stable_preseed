@@ -52,7 +52,6 @@ d-i partman-partitioning/default_label string gpt
 d-i partman/choose_label string gpt
 d-i partman/default_label string gpt
 partman-partitioning partman-partitioning/choose_label select gpt
-d-i partman-auto/disk string /dev/sda
 d-i partman-auto/method string regular
 d-i partman-lvm/device_remove_lvm boolean true
 d-i partman-md/device_remove_md boolean true
@@ -87,6 +86,10 @@ d-i grub-installer/only_debian boolean true
 d-i grub-installer/with_other_os boolean true
 d-i grub-installer/bootdev  string default
 d-i finish-install/reboot_in_progress note
+
+### Early commands
+d-i partman/early_command \
+       string debconf-set partman-auto/disk "$(list-devices disk | head -n1)"
 
 ### Late commands
 d-i preseed/late_command string \
