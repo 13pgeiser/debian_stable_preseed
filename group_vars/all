@@ -1,4 +1,4 @@
-docker_portainer_image: "portainer/portainer:1.23.0"
+docker_portainer_image: "portainer/portainer:1.23.2"
 
 # For passwords: mkpasswd -m sha-512
 users:
