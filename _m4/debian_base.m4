@@ -1,5 +1,5 @@
 # Debian base.
-FROM debian:10.3-slim
+FROM debian:10.4-slim
 
 RUN echo 'Acquire::http::Pipeline-Depth "0";\n\
 Acquire::http::No-Cache=True;\n\
