@@ -13,3 +13,13 @@ before_install:
   - make
   - make test_iso
 
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file:
+   - "buster-server.iso"
+   - "buster-standard.iso"
+  skip_cleanup: true
+  on:
+    tags: true
+
