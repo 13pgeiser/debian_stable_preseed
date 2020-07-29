@@ -23,6 +23,14 @@ Build of ISOs, execution of the debian-installer in qemu and deployment with Ans
 .. |azure-badge| image:: https://dev.azure.com/pascalgeiser/debian_stable_preseed/_apis/build/status/13pgeiser.debian_stable_preseed?branchName=master
               :target: https://dev.azure.com/pascalgeiser/debian_stable_preseed/_build/latest?definitionId=1&branchName=master
 
+|
+
+.. raw:: html
+
+	<i class="fa fa-github" aria-hidden="true"></i>&nbsp;<a href="https://github.com/13pgeiser/debian_stable_preseed">repository: debian_stable_preseed</a>
+
+|
+
 Debian Preseed
 **************
 
