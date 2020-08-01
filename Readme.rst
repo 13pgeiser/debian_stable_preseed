@@ -31,6 +31,8 @@ Build of ISOs, execution of the debian-installer in qemu and deployment with Ans
 
 |
 
+M4 usage heavily inspired by http://bobbynorton.com/posts/includes-in-dockerfiles-with-m4-and-make/
+
 Debian Preseed
 **************
 
