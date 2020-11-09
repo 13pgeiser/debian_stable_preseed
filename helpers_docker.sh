@@ -59,6 +59,25 @@ RUN 	apt-get update && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 EOF
+	if [ -f ./requirements.txt ]; then
+		cat <<EOF >>"$DOCKERFILE"
+# Copy requirements and install them
+COPY ./requirements.txt /
+RUN python3 -m pip install -r requirements.txt
+EOF
+	fi
+}
+
+dockerfile_install_ssh() {
+	cat >>$DOCKERFILE <<'EOF'
+# Install ssh client
+RUN 	apt-get update && \
+        apt-get dist-upgrade -y && \
+        apt-get install -y --no-install-recommends \
+                ssh && \
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/*
+EOF
 }
 
 dockerfile_switch_to_user() {
