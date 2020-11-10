@@ -1,6 +1,6 @@
 #!/bin/bash
 
-_setup_virtual_env() { #helpmsg: Setup a virtual environment in current folder (in subfolder venv)
+setup_virtual_env() { #helpmsg: Setup a virtual environment in current folder (in subfolder venv)
 	# Where to find the binaries
 	if [ "$OSTYPE" != "msys" ]; then
 		VENV=$SCRIPT_DIR/venv/bin
@@ -8,7 +8,7 @@ _setup_virtual_env() { #helpmsg: Setup a virtual environment in current folder (
 		VENV=$SCRIPT_DIR/venv/Scripts
 	fi
 	if [ "$OSTYPE" != "msys" ]; then
-		_install_debian_packages libffi-dev libssl-dev
+		install_debian_packages libffi-dev libssl-dev
 	fi
 	# Setup VENV
 	if [ ! -e "$SCRIPT_DIR/venv" ]; then
@@ -20,7 +20,7 @@ _setup_virtual_env() { #helpmsg: Setup a virtual environment in current folder (
 			fi
 		else
 			PYTHON3=/usr/bin/python3
-			_install_debian_packages python3-venv python3-pip python3-setuptools python3-wheel
+			install_debian_packages python3-venv python3-pip python3-setuptools python3-wheel
 		fi
 		"$PYTHON3" -m venv "$SCRIPT_DIR/venv"
 		"$VENV/python" -m pip install setuptools==41.1.0 wheel==0.33.4

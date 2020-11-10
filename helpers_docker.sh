@@ -1,9 +1,8 @@
 #!/bin/bash
-docker_setup() {
+docker_setup() { #helpmsg: Setup variables for docker: image, volume, ...
 	# Check for Msys
 	if [ "$OSTYPE" == "msys" ]; then
 		export MSYS_NO_PATHCONV=1
-		export USER="$USERNAME"
 	fi
 	# Image and volume names are prefixed by user name
 	IMAGE_NAME="${USER}_$1"
@@ -25,12 +24,12 @@ docker_setup() {
 	export DOCKER_RUN_IT
 }
 
-docker_build_image_and_create_volume() {
+docker_build_image_and_create_volume() { # create the volume for the home user and build the docker image
 	docker volume create "$VOLUME_NAME"
 	docker build -t "$IMAGE_NAME" . --build-arg UID="$(id -u)" --build-arg GID="$(id -g)" --build-arg USER="$USER"
 }
 
-dockerfile_create() {
+dockerfile_create() { #helpmsg: Start the dockerfile
 	cat >$DOCKERFILE <<'EOF'
 # Automatically created!
 # DO NOT EDIT!
@@ -44,7 +43,7 @@ RUN useradd -m -u $UID -g $GID -o -s /bin/bash $USER
 EOF
 }
 
-dockerfile_setup_python() {
+dockerfile_setup_python() { #helpmsg: Install python3 + pip + setuptools + venv
 	cat >>$DOCKERFILE <<'EOF'
 # Install the bare minimum to use python
 RUN 	apt-get update && \
@@ -68,7 +67,7 @@ EOF
 	fi
 }
 
-dockerfile_install_ssh() {
+dockerfile_install_ssh() { #helpmsg: Install ssh
 	cat >>$DOCKERFILE <<'EOF'
 # Install ssh client
 RUN 	apt-get update && \
@@ -80,7 +79,7 @@ RUN 	apt-get update && \
 EOF
 }
 
-dockerfile_switch_to_user() {
+dockerfile_switch_to_user() { #helpmsg: switch to the user in the dockerfile and set workdir
 	cat >>$DOCKERFILE <<'EOF'
 USER $USER
 ENV PATH="/home/${USER}/.local/bin:${PATH}"
@@ -88,7 +87,7 @@ WORKDIR /mnt
 EOF
 }
 
-run_shfmt_and_shellcheck() {
+run_shfmt_and_shellcheck() { #helpmsg: Execute shfmt and shellcheck
 	for helper in *.sh; do
 		docker run --rm -u "$USER_IDS" -v "$PWD":/mnt mvdan/shfmt -w /mnt/"$helper"
 		docker run --rm -e SHELLCHECK_OPTS="" -v "$PWD":/mnt koalaman/shellcheck:stable -x "$helper"
