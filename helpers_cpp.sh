@@ -114,6 +114,22 @@ download_unpack() { #helpmsg: Download and unpack archive (_download_unpack <md5
 	fi
 }
 
+install_subversion() { #helpmsg: Install subversion command line tool
+	case "$OSTYPE" in
+	msys)
+		local result
+		result=$(_download_unpack 757a8abc7bcf363f57c7aea34bcd3a36 https://www.visualsvn.com/files/Apache-Subversion-1.13.0.zip "ce" "" "")
+		PATH="$PATH:$result/bin"
+		;;
+	linux*)
+		install_debian_packages subversion
+		;;
+	*)
+		die "Unsupported OS: $OSTYPE"
+		;;
+	esac
+}
+
 install_buildessentials() { #helpmsg: Install essential build files
 	case "$OSTYPE" in
 	msys)
