@@ -33,6 +33,11 @@ echo "* TOOLS_FOLDER:  $TOOLS_FOLDER"
 echo "**********************************************"
 echo
 
+# Force an update of apt lists on Travis CI
+if [ "$USER" == "travis" ]; then
+	sudo apt-get update
+fi
+
 # Source helpers.
 # shellcheck source=helpers_base.sh
 source "$SCRIPT_DIR/helpers_base.sh"
