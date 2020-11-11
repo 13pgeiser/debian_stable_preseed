@@ -9,8 +9,10 @@ SCRIPT_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
 # Set TOOLS_FOLDER variable.
 if [ -z ${TOOLS_FOLDER+x} ]; then
-	if [ -d ../tools ]; then
-		TOOLS_FOLDER=$(realpath ../tools)
+	if [ -d ../../_tools ]; then
+		TOOLS_FOLDER=$(realpath ../../_tools)
+	elif [ -d ../_tools ]; then
+		TOOLS_FOLDER=$(realpath ../_tools)
 	else
 		TOOLS_FOLDER=$(realpath tools)
 	fi
