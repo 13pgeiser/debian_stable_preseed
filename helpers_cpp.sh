@@ -120,7 +120,7 @@ install_buildessentials() { #helpmsg: Install essential build files
 		local result
 		result=$(download_unpack 55c00ca779471df6faf1c9320e49b5a9 http://downloads.sourceforge.net/project/mingw-w64/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z "ce" "" "")
 		PATH="$PATH:$result/mingw64/bin"
-		result=$(download_unpack a5abcf7d9cac9d3680b819613819f3c6 http://repo.msys2.org/msys/x86_64/make-4.2.1-1-x86_64.pkg.tar.xz "cep" "" "")
+		result=$(download_unpack ebd514e7030f5adcaea37aa327954320 http://repo.msys2.org/msys/x86_64/make-4.3-1-x86_64.pkg.tar.xz "cep" "" "")
 		PATH="$PATH:$result/usr/bin"
 		;;
 	linux*)
@@ -216,9 +216,9 @@ gg() {
   git gui &
 }
 EOF
-	echo "PATH=\"$PATH\"" >>sourceme
+	echo "PATH=\"$PATH\"" >>"$PWD/sourceme"
 	# shellcheck disable=SC1091
-	source sourceme
+	source "$PWD/sourceme"
 }
 
 call_cmake() { #helpmsg: Correctly call cmake both on Linux and Msys2

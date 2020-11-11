@@ -1,3 +1,4 @@
+all: export MSYS_NO_PATHCONV = 1
 all:
 	$(MAKE) format
 	$(MAKE) check
