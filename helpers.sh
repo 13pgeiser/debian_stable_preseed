@@ -7,18 +7,6 @@ LANG=en_US.UTF_8
 # Current script folder
 SCRIPT_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
-# Set TOOLS_FOLDER variable.
-if [ -z ${TOOLS_FOLDER+x} ]; then
-	if [ -d ../../_tools ]; then
-		TOOLS_FOLDER=$(realpath ../../_tools)
-	elif [ -d ../_tools ]; then
-		TOOLS_FOLDER=$(realpath ../_tools)
-	else
-		TOOLS_FOLDER=$(realpath tools)
-	fi
-	export TOOLS_FOLDER
-fi
-
 # Set USER when running on msys.
 if [ "$OSTYPE" == "msys" ]; then
 	export USER="$USERNAME"
@@ -34,7 +22,6 @@ echo "* OSTYPE:        $OSTYPE"
 echo "* HOSTTYPE:      $HOSTTYPE"
 echo "* USER:          $USER"
 echo "* SCRIPT_DIR:    $SCRIPT_DIR"
-echo "* TOOLS_FOLDER:  $TOOLS_FOLDER"
 echo "**********************************************"
 echo
 

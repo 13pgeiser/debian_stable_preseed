@@ -1,6 +1,22 @@
 #!/bin/bash
+detect_tools_folder() { #helpmsg: create "tools" folder or use a common one.
+	# Set TOOLS_FOLDER variable.
+	if [ -z ${TOOLS_FOLDER+x} ]; then
+		if [ -d ../../_tools ]; then
+			TOOLS_FOLDER=$(realpath ../../_tools)
+		elif [ -d ../_tools ]; then
+			TOOLS_FOLDER=$(realpath ../_tools)
+		else
+			mkdir -p "$PWD/tools"
+			TOOLS_FOLDER=$(realpath tools)
+		fi
+		export TOOLS_FOLDER
+	fi
+}
+
 download() { #helpmsg: Download url (using curl) and verify the file (_download <md5> <url> [<archive>])
 	check_commands curl md5sum
+	detect_tools_folder
 	local archive
 	if [ -z "$3" ]; then
 		archive="$(basename "$2")"
