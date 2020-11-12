@@ -24,6 +24,11 @@ if [ "$OSTYPE" == "msys" ]; then
 	export USER="$USERNAME"
 fi
 
+if [ -z "$USER" ]; then
+	warn "USER is not set --> using host_user!"
+	export USER="host_user"
+fi
+
 echo "**********************************************"
 echo "* OSTYPE:        $OSTYPE"
 echo "* HOSTTYPE:      $HOSTTYPE"
