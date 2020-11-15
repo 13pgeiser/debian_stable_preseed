@@ -114,6 +114,7 @@ EOF
 		cat >>$DOCKERFILE <<'EOF'
 COPY AppRun /work/AppDir/AppRun
 RUN set -ex \
+    && chmod a+x /work/AppDir/AppRun \
     && wget https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage -P /work \
     && chmod +x /work/appimagetool-x86_64.AppImage
 RUN chown -R ${USER}.${USER} /work
