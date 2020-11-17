@@ -15,9 +15,7 @@ docker_setup() { #helpmsg: Setup variables for docker: image, volume, ...
 	if [ "$(getent group docker)" ]; then
 		DOCKER_FLAGS="--group-add $(getent group docker | cut -d: -f3) -v /var/run/docker.sock:/var/run/docker.sock"
 	fi
-	USER_IDS="$(id -u):$(id -g)"
-	export USER_IDS
-	DOCKER_RUN_BASE="docker run --rm  $DOCKER_FLAGS -u $USER_IDS -v $VOLUME_NAME:/home/$USER -v $(pwd):/mnt --name ${IMAGE_NAME}_container"
+	DOCKER_RUN_BASE="docker run --rm  $DOCKER_FLAGS -u $(id -u):$(id -g) -v $VOLUME_NAME:/home/$USER -v $(pwd):/mnt --name ${IMAGE_NAME}_container"
 	DOCKER_RUN_I="$DOCKER_RUN_BASE -i $IMAGE_NAME"
 	export DOCKER_RUN_I
 	DOCKER_RUN_IT="$DOCKER_RUN_BASE -it $IMAGE_NAME"
@@ -132,7 +130,7 @@ EOF
 
 run_shfmt_and_shellcheck() { #helpmsg: Execute shfmt and shellcheck
 	for helper in *.sh; do
-		docker run --rm -u "$USER_IDS" -v "$PWD":/mnt mvdan/shfmt -w /mnt/"$helper"
+		docker run --rm -u "$(id -u):$(id -g)" -v "$PWD":/mnt mvdan/shfmt -w /mnt/"$helper"
 		docker run --rm -e SHELLCHECK_OPTS="" -v "$PWD":/mnt koalaman/shellcheck:stable -x "$helper"
 	done
 }
