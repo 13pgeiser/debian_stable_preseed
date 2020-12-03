@@ -11,6 +11,8 @@ docker_setup() { #helpmsg: Setup variables for docker: image, volume, ...
 	export VOLUME_NAME
 	DOCKERFILE="Dockerfile"
 	export DOCKERFILE
+	DOCKER_BUILDKIT=1
+	export DOCKER_BUILDKIT
 	DOCKER_FLAGS=""
 	if [ "$(getent group docker)" ]; then
 		DOCKER_FLAGS="--group-add $(getent group docker | cut -d: -f3) -v /var/run/docker.sock:/var/run/docker.sock"
