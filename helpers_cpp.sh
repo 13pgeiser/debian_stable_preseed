@@ -103,7 +103,7 @@ download_unpack() { #helpmsg: Download and unpack archive (_download_unpack <md5
 			install_7zip
 			7z x -o"$dst_folder" "$TOOLS_FOLDER/$archive" 2>/dev/null 1>/dev/null
 			;;
-		"tgz")
+		"tgz" | "tar.gz")
 			mkdir -p "$dst_folder"
 			tar -C "$dst_folder" -xzf "$TOOLS_FOLDER/$archive" 2>/dev/null 1>/dev/null
 			;;
