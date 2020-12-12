@@ -1,9 +1,21 @@
 #!/bin/bash
-docker_setup() { #helpmsg: Setup variables for docker: image, volume, ...
-	# Check for Msys
-	if [ "$OSTYPE" == "msys" ]; then
-		export MSYS_NO_PATHCONV=1
+docker_configure() { #helpmsg: Basic compatibility for MSYS
+
+	DOCKER_FLAGS=""
+	if [ "$(getent group docker)" ]; then
+		DOCKER_FLAGS="--group-add $(getent group docker | cut -d: -f3) -v /var/run/docker.sock:/var/run/docker.sock"
 	fi
+	DOCKER_RUN_CMD="docker run --rm  $DOCKER_FLAGS -u $(id -u):$(id -g)"
+	if [ "$OSTYPE" == "msys" ]; then
+		DOCKER_RUN_CMD="MSYS_NO_PATHCONV=1 $DOCKER_RUN_CMD"
+	fi
+	export DOCKER_RUN_CMD
+	DOCKER_BUILDKIT=1
+	export DOCKER_BUILDKIT
+}
+
+docker_setup() { #helpmsg: Setup variables for docker: image, volume, ...
+	docker_configure
 	# Image and volume names are prefixed by user name
 	IMAGE_NAME="${USER}_$1"
 	export IMAGE_NAME
@@ -11,13 +23,7 @@ docker_setup() { #helpmsg: Setup variables for docker: image, volume, ...
 	export VOLUME_NAME
 	DOCKERFILE="Dockerfile"
 	export DOCKERFILE
-	DOCKER_BUILDKIT=1
-	export DOCKER_BUILDKIT
-	DOCKER_FLAGS=""
-	if [ "$(getent group docker)" ]; then
-		DOCKER_FLAGS="--group-add $(getent group docker | cut -d: -f3) -v /var/run/docker.sock:/var/run/docker.sock"
-	fi
-	DOCKER_RUN_BASE="docker run --rm  $DOCKER_FLAGS -u $(id -u):$(id -g) -v $VOLUME_NAME:/home/$USER -v $(pwd):/mnt --name ${IMAGE_NAME}_container"
+	DOCKER_RUN_BASE="$DOCKER_RUN_CMD -v $VOLUME_NAME:/home/$USER -v $(pwd):/mnt --name ${IMAGE_NAME}_container"
 	DOCKER_RUN_I="$DOCKER_RUN_BASE -i $IMAGE_NAME"
 	export DOCKER_RUN_I
 	DOCKER_RUN_IT="$DOCKER_RUN_BASE -it $IMAGE_NAME"
@@ -131,8 +137,9 @@ EOF
 }
 
 run_shfmt_and_shellcheck() { #helpmsg: Execute shfmt and shellcheck
+	docker_configure
 	for helper in *.sh; do
-		docker run --rm -u "$(id -u):$(id -g)" -v "$PWD":/mnt mvdan/shfmt -w /mnt/"$helper"
-		docker run --rm -e SHELLCHECK_OPTS="" -v "$PWD":/mnt koalaman/shellcheck:stable -x "$helper"
+		$DOCKER_RUN_CMD -v "$PWD":/mnt mvdan/shfmt -w /mnt/"$helper"
+		$DOCKER_RUN_CMD -e SHELLCHECK_OPTS="" -v "$PWD":/mnt koalaman/shellcheck:stable -x "$helper"
 	done
 }
