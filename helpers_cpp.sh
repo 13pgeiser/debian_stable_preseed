@@ -234,7 +234,7 @@ gg() {
 }
 EOF
 	echo "PATH=\"$PATH\"" >>"$PWD/sourceme"
-	# shellcheck disable=SC1091
+	# shellcheck disable=SC1090
 	source "$PWD/sourceme"
 }
 
