@@ -7,7 +7,14 @@ docker_configure() { #helpmsg: Basic compatibility for MSYS
 	fi
 	DOCKER_RUN_CMD="docker run --rm  $DOCKER_FLAGS -u $(id -u):$(id -g)"
 	if [ "$OSTYPE" == "msys" ]; then
-		DOCKER_RUN_CMD="MSYS_NO_PATHCONV=1 $DOCKER_RUN_CMD"
+		docker() {
+			#MSYS_NO_PATHCONV=1 docker.exe "$@"
+			(
+				export MSYS_NO_PATHCONV=1
+				"docker.exe" "$@"
+			)
+		}
+		export -f docker
 	fi
 	export DOCKER_RUN_CMD
 	DOCKER_BUILDKIT=1
