@@ -1,11 +1,6 @@
 #!/bin/bash
 docker_configure() { #helpmsg: Basic compatibility for MSYS
-
 	DOCKER_FLAGS=""
-	if [ "$(getent group docker)" ]; then
-		DOCKER_FLAGS="--group-add $(getent group docker | cut -d: -f3) -v /var/run/docker.sock:/var/run/docker.sock"
-	fi
-	DOCKER_RUN_CMD="docker run --rm  $DOCKER_FLAGS -u $(id -u):$(id -g)"
 	if [ "$OSTYPE" == "msys" ]; then
 		docker() {
 			#MSYS_NO_PATHCONV=1 docker.exe "$@"
@@ -15,7 +10,12 @@ docker_configure() { #helpmsg: Basic compatibility for MSYS
 			)
 		}
 		export -f docker
+	else
+		if [ "$(getent group docker)" ]; then
+			DOCKER_FLAGS="--group-add $(getent group docker | cut -d: -f3) -v /var/run/docker.sock:/var/run/docker.sock"
+		fi
 	fi
+	DOCKER_RUN_CMD="docker run --rm  $DOCKER_FLAGS -u $(id -u):$(id -g)"
 	export DOCKER_RUN_CMD
 	DOCKER_BUILDKIT=1
 	export DOCKER_BUILDKIT
