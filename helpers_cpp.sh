@@ -78,16 +78,18 @@ download_unpack() { #helpmsg: Download and unpack archive (_download_unpack <md5
 		archive="$4"
 	fi
 	download "$1" "$2" "$archive"
-	if [ -z "$5" ]; then
-		folder="${archive%.*}"
-	else
-		folder="$5"
-	fi
 	extension="${archive##*.}"
 	base_name="${archive%.*}"
 	extension_bis="${base_name##*.}"
+	if [ -z "$5" ]; then
+		folder="${archive%.*}"
+		if [ "$extension_bis" == "tar" ]; then
+			folder="${folder%.*}"
+		fi
+	else
+		folder="$5"
+	fi
 	if [ "$extension_bis" == "tar" ]; then
-		folder="${folder%.*}"
 		extension="$extension_bis.$extension"
 	fi
 	if echo "$3" | grep -q 'c'; then
