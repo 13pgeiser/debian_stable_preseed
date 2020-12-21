@@ -30,8 +30,6 @@ docker_setup() { #helpmsg: Setup variables for docker: image, volume, ...
 	export VOLUME_NAME
 	DOCKERFILE="Dockerfile"
 	export DOCKERFILE
-	DOCKER_BUILDKIT=1
-	export DOCKER_BUILDKIT
 	DOCKER_RUN_BASE="$DOCKER_RUN_CMD -v $VOLUME_NAME:/home/$USER -v $(pwd):/mnt --name ${IMAGE_NAME}_container"
 	export DOCKER_RUN_BASE
 	DOCKER_RUN_I="$DOCKER_RUN_BASE -i $IMAGE_NAME"

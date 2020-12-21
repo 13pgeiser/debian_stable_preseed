@@ -44,6 +44,22 @@ install_7zip() { #helpmsg: install 7zip
 	esac
 }
 
+install_zstd() {
+	case "$OSTYPE" in
+	msys)
+		local result
+		result=$(download_unpack ad62ccda0e8a0665b730faff92bd4308 https://repo.msys2.org/mingw/x86_64/mingw-w64-x86_64-zstd-1.4.4-1-any.pkg.tar.xz "ce" "" "")
+		PATH="$result/mingw64/bin:$PATH"
+		;;
+	linux*)
+		install_debian_packages zstd
+		;;
+	*)
+		die "Unsupported OS: $OSTYPE"
+		;;
+	esac
+}
+
 download_unpack() { #helpmsg: Download and unpack archive (_download_unpack <md5> <url> [<flags> <archive> <folder>])
 	# flags: 'c' -> create_folder
 	# flags: 'e' -> echo final folder
@@ -99,6 +115,11 @@ download_unpack() { #helpmsg: Download and unpack archive (_download_unpack <md5
 		"tar.bz2")
 			mkdir -p "$dst_folder"
 			tar -C "$dst_folder" -xjf "$TOOLS_FOLDER/$archive" 2>/dev/null 1>/dev/null
+			;;
+		"tar.zst")
+			install_zstd
+			mkdir -p "$dst_folder"
+			tar -C "$dst_folder" -I zstd -xf "$TOOLS_FOLDER/$archive" 2>/dev/null 1>/dev/null
 			;;
 		*)
 			die "Unsupported file extension: $extension"
