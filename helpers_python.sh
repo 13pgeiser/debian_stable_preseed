@@ -23,6 +23,7 @@ setup_virtual_env() { #helpmsg: Setup a virtual environment in current folder (i
 			install_debian_packages python3-venv python3-pip python3-setuptools python3-wheel
 		fi
 		"$PYTHON3" -m venv "$(pwd)/venv"
+		"$VENV/python" -m pip install --upgrade pip
 		"$VENV/python" -m pip install setuptools==41.1.0 wheel==0.33.4
 	fi
 	if [ $# -ge 1 ] && [ -n "$1" ]; then
