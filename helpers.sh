@@ -44,6 +44,8 @@ source "$SCRIPT_DIR/helpers_debian.sh"
 source "$SCRIPT_DIR/helpers_docker.sh"
 # shellcheck source=helpers_python.sh
 source "$SCRIPT_DIR/helpers_python.sh"
+# shellcheck source=helpers_qemu.sh
+source "$SCRIPT_DIR/helpers_qemu.sh"
 
 # Source local sourceme if it exists.
 if [ -e sourceme ]; then
