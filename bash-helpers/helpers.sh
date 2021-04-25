@@ -4,6 +4,8 @@
 set -eu
 LANG=en_US.UTF_8
 
+export
+
 # Current script folder
 SCRIPT_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
 
