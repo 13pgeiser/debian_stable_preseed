@@ -27,3 +27,14 @@ check_commands() { #helpmsg: Test if a list of commands is available on the PATH
 		fi
 	done
 }
+
+is_ci() { #helpmsg: True on a CI machine
+	if [[ -v TRAVIS ]]; then
+		# Travis CI
+		return 0
+	fi
+	if [[ -v AZURE_HTTP_USER_AGENT ]]; then
+		return 0
+	fi
+	return 1
+}
