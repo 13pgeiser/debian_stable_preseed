@@ -76,7 +76,7 @@ d-i apt-setup/security_host string security.debian.org
 
 ### Package selection
 tasksel tasksel/first multiselect server
-d-i pkgsel/include string sudo console-setup openssh-server sshpass less net-tools python3
+d-i pkgsel/include string sudo console-setup openssh-server sshpass less net-tools python3 network-manager
 
 d-i pkgsel/upgrade select full-upgrade
 popularity-contest popularity-contest/participate boolean false

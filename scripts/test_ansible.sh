@@ -12,7 +12,7 @@ if [ ! -e roles ]; then
   ansible-galaxy install --roles-path roles "git+https://13pgeiser@github.com/13pgeiser/ansible_machine_demo.git"
 fi
 echo "Starting QEMU"
-qemu_launch tcp::2222-:22 4G buster-standard.iso
+qemu_launch tcp::2222-:22 4G debian-preseed-standard.iso
 echo "Waiting for SSH connection"
 qemu_wait_for_ssh localadmin@localhost 2222
 (

@@ -4,7 +4,7 @@ set -eu
 source ./bash-helpers/helpers.sh
 
 echo "Starting QEMU"
-qemu_launch tcp::2222-:22 4G buster-standard.iso
+qemu_launch tcp::2222-:22 4G debian-preseed-standard.iso
 echo "Waiting for SSH connection"
 qemu_wait_for_ssh localadmin@localhost 2222
 echo "Copying SSH keys"

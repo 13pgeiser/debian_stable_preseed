@@ -3,8 +3,8 @@ M4_COMMON = `pwd`/_m4
 M4 = m4
 
 # Debian buster preseed
-BUSTER_NET_INST_VER:=10.9.0
-BUSTER_NET_INST_MD5:=73e74eef3d998d522f92295016d92fdc
+DEBIAN_NET_INST_VER:=11.0.0
+DEBIAN_NET_INST_MD5:=499953266841cae41612310e65659456
 
 # Include local config if any
 -include ../docker_config.mak
@@ -14,9 +14,9 @@ DOCKERFILES=\
 	debian_preseed/Dockerfile \
 	debian_preseed/server.preseed \
 	debian_preseed/standard.preseed \
-	debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso \
-	buster-standard.iso \
-	buster-server.iso \
+	debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso \
+	debian-preseed-standard.iso \
+	debian-preseed-server.iso \
 
 # Build default, build all Dockerfiles, this will create the associated images.
 all:	$(DOCKERFILES)
@@ -40,16 +40,18 @@ mrproper: clean
 	docker rm -f `docker ps -a -q` || true
 	docker system prune -f -a
 
-debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso:
-	if [ "`md5sum debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso | cut -d' ' -f1`" != "$(BUSTER_NET_INST_MD5)" ]; then curl -SL https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso -o debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso; fi
-	if [ "`md5sum debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso | cut -d' ' -f1`" != "$(BUSTER_NET_INST_MD5)" ]; then echo "Invalid MD5" ; rm -f debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso ; exit 1 ; fi
+https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.0.0-amd64-netinst.iso
+
+debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso:
+	if [ "`md5sum debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso | cut -d' ' -f1`" != "$(DEBIAN_NET_INST_MD5)" ]; then curl -SL https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso -o debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso; fi
+	if [ "`md5sum debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso | cut -d' ' -f1`" != "$(DEBIAN_NET_INST_MD5)" ]; then echo "Invalid MD5" ; rm -f debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso ; exit 1 ; fi
 	touch $@
 
-buster-standard.iso:	debian_preseed/standard.preseed debian_preseed/Dockerfile debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso
-	bash scripts/create_iso.sh "debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso" buster-standard.iso debian_preseed/standard.preseed
+debian-preseed-standard.iso:	debian_preseed/standard.preseed debian_preseed/Dockerfile debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso
+	bash scripts/create_iso.sh "debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso" debian-preseed-standard.iso debian_preseed/standard.preseed
 
-buster-server.iso:	debian_preseed/server.preseed debian_preseed/Dockerfile debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso
-	bash scripts/create_iso.sh "debian-$(BUSTER_NET_INST_VER)-amd64-netinst.iso" buster-server.iso debian_preseed/server.preseed
+debian-preseed-server.iso:	debian_preseed/server.preseed debian_preseed/Dockerfile debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso
+	bash scripts/create_iso.sh "debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso" debian-preseed-server.iso debian_preseed/server.preseed
 
 test_iso:
 	bash scripts/test_iso.sh
