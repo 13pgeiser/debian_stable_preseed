@@ -19,7 +19,7 @@ qemu_wait_for_ssh localadmin@localhost 2222
   echo "Launch ansible-playbook (ansible_machine_demo)"
 
 	cd roles || exit
-	ansible-playbook -i ../inventory "ansible_machine_demo/tasks/main.yml" -vv
+	ansible-playbook -i ../inventory "ansible_machine_demo/demo.yml" -vv
 )
 echo "Calling shutdown!"
 ssh -p 2222 localadmin@localhost "sudo poweroff" || true
