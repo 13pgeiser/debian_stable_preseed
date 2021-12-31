@@ -3,8 +3,8 @@ M4_COMMON = `pwd`/_m4
 M4 = m4
 
 # Debian buster preseed
-DEBIAN_NET_INST_VER:=11.1.0
-DEBIAN_NET_INST_SHA256:=8488abc1361590ee7a3c9b00ec059b29dfb1da40f8ba4adf293c7a30fa943eb2
+DEBIAN_NET_INST_VER:=11.2.0
+DEBIAN_NET_INST_SHA256:=45c9feabba213bdc6d72e7469de71ea5aeff73faea6bfb109ab5bad37c3b43bd
 
 # Include local config if any
 -include ../docker_config.mak
