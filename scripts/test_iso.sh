@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-source ./bash-helpers/helpers.sh
+source ./bash-scripts/helpers.sh
 
 echo "Starting QEMU"
 qemu_launch tcp::2222-:22 4G debian-preseed-standard.iso

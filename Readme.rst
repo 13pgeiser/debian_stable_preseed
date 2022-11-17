@@ -9,13 +9,6 @@ Debian Preseed, Ansible and Docker: the ultimate deployment solution
 
 .. contents::
 
-Build of ISOs and execution of the debian-installer in qemu up to ssh connection when the machine is ready:
-
-|travis-badge|
-
-.. |travis-badge| image:: https://travis-ci.org/13pgeiser/debian_stable_preseed.svg?branch=master
-              :target: https://travis-ci.org/github/13pgeiser/debian_stable_preseed
-
 Build of ISOs, execution of the debian-installer in qemu and deployment with Ansible:
 
 |azure-badge|

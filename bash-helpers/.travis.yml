@@ -1,8 +1,0 @@
-language: minimal
-
-services:
-  - docker
-
-before_install:
-  - make check
-  - make run
