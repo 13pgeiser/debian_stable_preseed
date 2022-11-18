@@ -5,8 +5,10 @@ jobs:
 - job: Build
   timeoutInMinutes: 180
   pool:
-    vmImage: 'Ubuntu-18.04'
+    vmImage: 'Ubuntu-20.04'
   steps:
+  - checkout: self
+    submodules: true
   - bash: make
   - bash: make test_iso
   - bash: make test_ansible
