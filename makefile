@@ -15,8 +15,8 @@ DOCKERFILES=\
 	debian_preseed/server.preseed \
 	debian_preseed/standard.preseed \
 	debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso \
-	debian-preseed-standard.iso \
-	debian-preseed-server.iso \
+	release/debian-preseed-standard.iso \
+	release/debian-preseed-server.iso \
 
 # Build default, build all Dockerfiles, this will create the associated images.
 all:	$(DOCKERFILES)
@@ -32,7 +32,7 @@ all:	$(DOCKERFILES)
 clean:
 	rm -f $(DOCKERFILES)
 	rm -f qemu.pid hda.tmp
-	rm -rf ./venv ./roles
+	rm -rf ./venv ./roles ./release
 
 # Clean everything
 mrproper: clean
@@ -45,11 +45,13 @@ debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso:
 	if [ "`sha256sum debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso | cut -d' ' -f1`" != "$(DEBIAN_NET_INST_SHA256)" ]; then echo "Invalid SHA256" ; rm -f debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso ; exit 1 ; fi
 	touch $@
 
-debian-preseed-standard.iso:	debian_preseed/standard.preseed debian_preseed/Dockerfile debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso
-	bash scripts/create_iso.sh "debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso" debian-preseed-standard.iso debian_preseed/standard.preseed
+release/debian-preseed-standard.iso:	debian_preseed/standard.preseed debian_preseed/Dockerfile debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso
+	mkdir -p release
+	bash scripts/create_iso.sh "debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso" release/debian-preseed-standard.iso debian_preseed/standard.preseed
 
-debian-preseed-server.iso:	debian_preseed/server.preseed debian_preseed/Dockerfile debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso
-	bash scripts/create_iso.sh "debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso" debian-preseed-server.iso debian_preseed/server.preseed
+release/debian-preseed-server.iso:	debian_preseed/server.preseed debian_preseed/Dockerfile debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso
+	mkdir -p release
+	bash scripts/create_iso.sh "debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso" release/debian-preseed-server.iso debian_preseed/server.preseed
 
 test_iso:
 	bash scripts/test_iso.sh

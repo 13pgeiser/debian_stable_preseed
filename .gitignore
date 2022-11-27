@@ -4,5 +4,6 @@
 *.preseed
 *.tmp
 Dockerfile
+release/
 roles
 venv

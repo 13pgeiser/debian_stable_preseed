@@ -2,7 +2,7 @@ Debian Preseed, Ansible and Docker: the ultimate deployment solution
 ####################################################################
 
 :date: 2020-07-28 14:00
-:modified: 2020-07-28 14:00
+:modified: 2022-11-27 14:00
 :tags: debian, ansible, docker
 :authors: Pascal Geiser
 :summary: Fully automatic debian installation with preseed, ansible and docker
@@ -47,12 +47,12 @@ To rebuild the ISO images, make sure you've Docker installed and type::
 	make
 
 This will download the debian installer ISO image, modify it and provide 2 ISO:
- * buster-server.iso -> the available disk space is assigned mostly to /var
- * buster-standard.iso -> the available disk space is assigned mostly to /
+ * debian-preseed-server.iso -> the available disk space is assigned mostly to /var
+ * debian-preseed-standard.iso -> the available disk space is assigned mostly to /
 
 To use the ISO::
 
-	sudo dd if=buster-server.iso of=<put the device matching the USB key you just plugged>
+	sudo dd if=debian-preseed-server.iso of=<put the device matching the USB key you just plugged>
 
 .. warning::
 
@@ -93,13 +93,12 @@ Ansible
 `test_ansible.sh <https://github.com/13pgeiser/debian_stable_preseed/blob/master/scripts/test_ansible.sh>`__ fetches
 the roles using ansible-galaxy. Then, it calls ansible-playbook on the freshly installed debian image.
 
-As a demonstration, the following roles are applied (see `task.yml <https://github.com/13pgeiser/ansible_machine_demo/blob/master/tasks/main.yml>`__):
- * `ansible_buster_base <https://github.com/13pgeiser/ansible_buster_base>`__ : configure non-free, install firmwares and configure locales
- * `ansible_users <https://github.com/13pgeiser/ansible_users>`__ : configure the user accounts
- * `ansible_docker <https://github.com/13pgeiser/ansible_docker>`__ : install docker
- * `ansible_portainer <https://github.com/13pgeiser/ansible_docker_portainer>`__ : deploy `Portainer <https://www.portainer.io/>`__ to easily manage the containers locally
- * `ansible_registy <https://github.com/13pgeiser/ansible_docker_registry>`__ : deploy a local docker registry
- * `ansible_groups <https://github.com/13pgeiser/ansible_groups>`__ : Add users to groups
+As a demonstration, the following roles are applied (see `demo.yml <https://github.com/13pgeiser/ansible_debian/blob/master/demo/demo.yml>`__):
+ * `ansible_debian <https://github.com/13pgeiser/ansible_debian/blob/master/tasks/tasks.yml>`__ : configure non-free, install firmwares and configure locales
+ * `ansible_debian/roles/users <https://github.com/13pgeiser/ansible_debian/blob/master/roles/users>`__ : configure the user accounts
+ * `ansible_debian/roles/docker <https://github.com/13pgeiser/ansible_debian/tree/master/roles/docker>`__ : install docker
+ * `ansible_debian/roles/docker_portainer <https://github.com/13pgeiser/ansible_debian/tree/master/roles/docker_portainer>`__ : deploy `Portainer <https://www.portainer.io/>`__ to easily manage the containers locally
+ * `ansible_debian/roles/groups <https://github.com/13pgeiser/ansible_debian/tree/master/roles/groups>`__ : Add users to groups
 
 This is just an example how easy it is to deploy fully automatically a debian system.
 

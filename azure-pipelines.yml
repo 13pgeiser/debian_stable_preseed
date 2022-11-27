@@ -12,4 +12,15 @@ jobs:
   - bash: make
   - bash: make test_iso
   - bash: make test_ansible
-
+  - task: CopyFiles@2
+    inputs:
+      Contents: |
+        release/**
+      targetFolder: $(Build.ArtifactStagingDirectory)
+  - task: GitHubRelease@0
+    inputs:
+      gitHubConnection: '13pgeiser_azure'
+      repositoryName: '13pgeiser/debian_stable_preseed'
+      action: 'create'
+      assets: |
+        $(Build.ArtifactStagingDirectory)/release/**
