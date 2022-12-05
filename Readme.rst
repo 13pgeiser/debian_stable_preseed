@@ -11,10 +11,11 @@ Debian Preseed, Ansible and Docker: the ultimate deployment solution
 
 Build of ISOs, execution of the debian-installer in qemu and deployment with Ansible:
 
-|azure-badge|
 
-.. |azure-badge| image:: https://dev.azure.com/pascalgeiser/debian_stable_preseed/_apis/build/status/13pgeiser.debian_stable_preseed?branchName=master
-              :target: https://dev.azure.com/pascalgeiser/debian_stable_preseed/_build/latest?definitionId=1&branchName=master
+|github-badge|
+
+.. |github-badge| image:: https://github.com/13pgeiser/debian_stable_preseed/actions/workflows/publish.yml/badge.svg
+              :target: https://github.com/13pgeiser/debian_stable_preseed/actions/workflows/publish.yml
 
 |
 
