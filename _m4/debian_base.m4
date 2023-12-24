@@ -1,5 +1,5 @@
 # Debian base.
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 RUN echo 'Acquire::http::Pipeline-Depth "0";\n\
 Acquire::http::No-Cache=True;\n\

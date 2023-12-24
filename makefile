@@ -3,8 +3,9 @@ M4_COMMON = `pwd`/_m4
 M4 = m4
 
 # Debian buster preseed
-DEBIAN_NET_INST_VER:=11.5.0
-DEBIAN_NET_INST_SHA256:=e307d0e583b4a8f7e5b436f8413d4707dd4242b70aea61eb08591dc0378522f3
+DEBIAN_NET_INST_VER:=12.4.0
+DEBIAN_NET_INST_SHA256:=64d727dd5785ae5fcfd3ae8ffbede5f40cca96f1580aaa2820e8b99dae989d94
+
 
 # Include local config if any
 -include ../docker_config.mak
@@ -53,10 +54,10 @@ release/debian-preseed-server.iso:	debian_preseed/server.preseed debian_preseed/
 	mkdir -p release
 	bash scripts/create_iso.sh "debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso" release/debian-preseed-server.iso debian_preseed/server.preseed
 
-test_iso:
+test_iso: all
 	bash scripts/test_iso.sh
 
-test_ansible:
+test_ansible: test_iso
 	bash scripts/test_ansible.sh
 
 .PHONY: clean test_iso test_ansible

@@ -7,22 +7,7 @@ debconf-set-selections -c preseed.cfg
 xorriso -osirrox on -indev input.iso -extract / isofiles
 chmod +w -R isofiles/
 
-# Copy auto.cfg if it exists
-if [[ -e auto.cfg ]]; then
-    cp auto.cfg /isofiles/isolinux/
-fi
-
-# Copy grub.cfg if it exists
-if [[ -e grub.cfg ]]; then
-    cp grub.cfg /isofiles/boot/grub/
-fi
-
-# Patch isolinux
-cd isofiles/
-sed -i 's/timeout 0/timeout 20/' ./isolinux/isolinux.cfg
-sed -i '/menu\ default/d' ./isolinux/gtk.cfg
-sed -i '/include stdmenu.cfg/a include auto.cfg' ./isolinux/menu.cfg
-cd ..
+cp isolinux.cfg /isofiles/isolinux/
 
 # Extract initrd
 gunzip isofiles/install.amd/initrd.gz

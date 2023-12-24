@@ -68,22 +68,24 @@ d-i partman/mount_style select uuid
 d-i partman-efi/non_efi_system boolean true
 
 ### Apt setup
-d-i apt-setup/use_mirror boolean true
+d-i apt-setup/non-free-firmware boolean true
 d-i apt-setup/non-free boolean true
 d-i apt-setup/contrib boolean true
+d-i apt-setup/use_mirror boolean false
 d-i apt-setup/services-select multiselect security, updates
 d-i apt-setup/security_host string security.debian.org
+d-i apt-setup/disable-cdrom-entries boolean true
 
 ### Package selection
 tasksel tasksel/first multiselect server
-d-i pkgsel/include string sudo console-setup openssh-server sshpass less net-tools python3 network-manager lsb-release
+d-i pkgsel/include string sudo console-setup openssh-server less lsb-release python3 python3-apt
 
 d-i pkgsel/upgrade select full-upgrade
 popularity-contest popularity-contest/participate boolean false
 
 ### Boot loader installation
 d-i grub-installer/only_debian boolean true
-d-i grub-installer/with_other_os boolean true
+d-i grub-installer/with_other_os boolean false
 d-i grub-installer/bootdev  string default
 d-i finish-install/reboot_in_progress note
 
