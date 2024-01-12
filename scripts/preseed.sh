@@ -7,7 +7,13 @@ debconf-set-selections -c preseed.cfg
 xorriso -osirrox on -indev input.iso -extract / isofiles
 chmod +w -R isofiles/
 
-cp isolinux.cfg /isofiles/isolinux/
+cp auto.cfg /isofiles/isolinux/
+sed -i 's/include gtk.cfg/include auto.cfg/g' isofiles/isolinux/menu.cfg
+sed -i 's/include spkgtk.cfg//g' isofiles/isolinux/menu.cfg
+sed -i 's/include spk.cfg//g' isofiles/isolinux/menu.cfg
+sed -i '/set theme=\/boot\/grub\/theme\/1/r grubauto.cfg' /isofiles/boot/grub/grub.cfg
+sed -i '/set theme=\/boot\/grub\/theme\/1/r grubauto.cfg' /isofiles/boot/grub/i386-efi/grub.cfg
+sed -i '/set theme=\/boot\/grub\/theme\/1/r grubauto.cfg' /isofiles/boot/grub/x86_64-efi/grub.cfg
 
 # Extract initrd
 gunzip isofiles/install.amd/initrd.gz
