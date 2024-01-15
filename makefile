@@ -18,12 +18,14 @@ DOCKERFILES=\
 	debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso \
 	release/debian-preseed-standard.iso \
 	release/debian-preseed-server.iso \
+	release/debian-preseed-nopartman.iso \
 
 # Build default, build all Dockerfiles, this will create the associated images.
 all:	$(DOCKERFILES)
 
 # Default rule for m4 -> build docker image!
 %: %.m4
+	echo $(M4_COMMON)
 	$(M4) -I $(M4_COMMON) $^ >$@.tmp
 	$(eval IS_DOCKERFILE := $(shell echo $@ | grep Dockerfile))
 	if [ "$(IS_DOCKERFILE)" != "" ]; then cd $(dir $@) && docker build --rm -f Dockerfile.tmp -t $(shell dirname $@) . && docker image prune -f ; fi
@@ -53,6 +55,10 @@ release/debian-preseed-standard.iso:	debian_preseed/standard.preseed debian_pres
 release/debian-preseed-server.iso:	debian_preseed/server.preseed debian_preseed/Dockerfile debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso
 	mkdir -p release
 	bash scripts/create_iso.sh "debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso" release/debian-preseed-server.iso debian_preseed/server.preseed
+
+release/debian-preseed-nopartman.iso:	debian_preseed/nopartman.preseed debian_preseed/Dockerfile debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso
+	mkdir -p release
+	bash scripts/create_iso.sh "debian-$(DEBIAN_NET_INST_VER)-amd64-netinst.iso" release/debian-preseed-nopartman.iso debian_preseed/nopartman.preseed
 
 test_iso: all
 	bash scripts/test_iso.sh

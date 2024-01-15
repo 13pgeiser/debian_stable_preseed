@@ -1,5 +1,6 @@
 # vim:set ft=dockerfile:
 include(`preseed.m4')
+include(partman.m4)
 
 d-i partman-auto/expert_recipe string         \
    gpt-boot-root ::                           \
