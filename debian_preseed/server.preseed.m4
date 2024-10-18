@@ -8,15 +8,15 @@ d-i partman-auto/expert_recipe string         \
       1 1 1 free                              \
          $bios_boot{ }                        \
          method{ biosgrub } .                 \
-      200 200 200 fat32                       \
+      512 1024 512 fat32                       \
          $primary{ }                          \
          method{ efi } format{ } .            \
-      512 512 512 ext3                        \
+      1024 1024 1024 ext3                        \
          $primary{ } $bootable{ }             \
          method{ format } format{ }           \
          use_filesystem{ } filesystem{ ext3 } \
          mountpoint{ /boot } .                \
-      20000 1024 40000 ext4                   \
+      40000 1024 40000 ext4                   \
          $primary{ }                          \
          method{ format } format{ }           \
          use_filesystem{ } filesystem{ ext4 } \
