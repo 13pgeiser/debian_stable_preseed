@@ -3,8 +3,8 @@ M4_COMMON = `pwd`/_m4
 M4 = m4
 
 # Debian buster preseed
-DEBIAN_NET_INST_VER:=12.6.0
-DEBIAN_NET_INST_SHA256:=ade3a4acc465f59ca2496344aab72455945f3277a52afc5a2cae88cdc370fa12
+DEBIAN_NET_INST_VER:=12.7.0
+DEBIAN_NET_INST_SHA256:=8fde79cfc6b20a696200fc5c15219cf6d721e8feb367e9e0e33a79d1cb68fa83
 
 
 # Include local config if any
