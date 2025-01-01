@@ -6,9 +6,10 @@ M4 = m4
 DEBIAN_NET_INST_VER:=12.8.0
 DEBIAN_NET_INST_SHA256:=04396d12b0f377958a070c38a923c227832fa3b3e18ddc013936ecf492e9fbb3
 
-
+ifneq  ($(IGNORE_LOCAL_CONFIG),true)
 # Include local config if any
 -include ../docker_config.mak
+endif
 
 # List of docker images & targets
 DOCKERFILES=\
