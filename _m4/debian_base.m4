@@ -1,5 +1,5 @@
 # Debian base.
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 # Upgrade
 RUN set -ex \
