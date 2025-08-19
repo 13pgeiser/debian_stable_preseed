@@ -1,1 +1,1 @@
-ansible==8.7.0
+ansible==11.9.0

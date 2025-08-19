@@ -54,7 +54,7 @@ d-i apt-setup/disable-cdrom-entries boolean true
 
 ### Package selection
 tasksel tasksel/first multiselect server
-d-i pkgsel/include string sudo console-setup openssh-server less lsb-release python3 python3-apt
+d-i pkgsel/include string sudo console-setup openssh-server less lsb-release python3 python3-apt gpg
 
 d-i pkgsel/upgrade select full-upgrade
 popularity-contest popularity-contest/participate boolean false
